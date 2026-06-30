@@ -1,5 +1,3 @@
-package deterministic;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -15,8 +13,9 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestName;
+import probabilistic.ProbabilisticScheduler;
 
-public class Testing {
+public class TestingProbabilistic {
 	// helper vars
 	private static int currentHashID = 1;
 	private static HashMap<Integer, ArrayList<Long>> times = new HashMap<>();
@@ -40,7 +39,7 @@ public class Testing {
 	
 	@AfterClass
 	public static void printTimes() throws FileNotFoundException {
-		PrintWriter pw = new PrintWriter(new File("greedy_test_results.csv"));
+		PrintWriter pw = new PrintWriter(new File("probabilistic_test_results.csv"));
         StringBuffer buf = new StringBuffer();
         buf.append("id,name,times\n");
         
@@ -55,7 +54,7 @@ public class Testing {
 		pw.write(buf.toString());
         pw.close();
         
-        pw = new PrintWriter(new File("greedy_makesapan_results.csv"));
+        pw = new PrintWriter(new File("probabilistic_makesapan_results.csv"));
         buf = new StringBuffer();
         buf.append("id,name,makespans\n");
         
@@ -77,11 +76,11 @@ public class Testing {
 		
 		int M = 10;
 		for (int i = 0; i < LOOP; i++) {
-			GreedyScheduler gs = new GreedyScheduler(M, M*10);
-			gs.solve();
-			times.get(currentHashID).add(gs.runningTime());
-			gs.output();
-			makespans.get(currentHashID).add(gs.minimumMakeSpan);
+			ProbabilisticScheduler ps = new ProbabilisticScheduler(M, M*10);
+			ps.solve();
+			times.get(currentHashID).add(ps.runningTime());
+			ps.output();
+			makespans.get(currentHashID).add(ps.minimumMakeSpan);
 		}
 	}
 	
@@ -91,11 +90,11 @@ public class Testing {
 		
 		int M = 30;
 		for (int i = 0; i < LOOP; i++) {
-			GreedyScheduler gs = new GreedyScheduler(M, M*100);
-			gs.solve();
-			times.get(currentHashID).add(gs.runningTime());
-			gs.output();
-			makespans.get(currentHashID).add(gs.minimumMakeSpan);
+			ProbabilisticScheduler ps = new ProbabilisticScheduler(M, M*100);
+			ps.solve();
+			times.get(currentHashID).add(ps.runningTime());
+			ps.output();
+			makespans.get(currentHashID).add(ps.minimumMakeSpan);
 		}
 	}
 	
@@ -105,11 +104,11 @@ public class Testing {
 		
 		int M = 50;
 		for (int i = 0; i < LOOP; i++) {
-			GreedyScheduler gs = new GreedyScheduler(M, M*100);
-			gs.solve();
-			times.get(currentHashID).add(gs.runningTime());
-			gs.output();
-			makespans.get(currentHashID).add(gs.minimumMakeSpan);
+			ProbabilisticScheduler ps = new ProbabilisticScheduler(M, M*100);
+			ps.solve();
+			times.get(currentHashID).add(ps.runningTime());
+			ps.output();
+			makespans.get(currentHashID).add(ps.minimumMakeSpan);
 		}
 	}
 	
@@ -119,11 +118,11 @@ public class Testing {
 		
 		int M = 70;
 		for (int i = 0; i < LOOP; i++) {
-			GreedyScheduler gs = new GreedyScheduler(M, M*100);
-			gs.solve();
-			times.get(currentHashID).add(gs.runningTime());
-			gs.output();
-			makespans.get(currentHashID).add(gs.minimumMakeSpan);
+			ProbabilisticScheduler ps = new ProbabilisticScheduler(M, M*100);
+			ps.solve();
+			times.get(currentHashID).add(ps.runningTime());
+			ps.output();
+			makespans.get(currentHashID).add(ps.minimumMakeSpan);
 		}
 	}
 	
@@ -133,11 +132,11 @@ public class Testing {
 		
 		int M = 90;
 		for (int i = 0; i < LOOP; i++) {
-			GreedyScheduler gs = new GreedyScheduler(M, M*100);
-			gs.solve();
-			times.get(currentHashID).add(gs.runningTime());
-			gs.output();
-			makespans.get(currentHashID).add(gs.minimumMakeSpan);
+			ProbabilisticScheduler ps = new ProbabilisticScheduler(M, M*100);
+			ps.solve();
+			times.get(currentHashID).add(ps.runningTime());
+			ps.output();
+			makespans.get(currentHashID).add(ps.minimumMakeSpan);
 		}
 	}
 }
