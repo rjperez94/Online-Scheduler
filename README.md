@@ -26,6 +26,29 @@
 
 1. Right click on your `Java Project` --> `Run As` --> `Java Application`
 
+## Build an executable using IntelliJ IDEA
+
+1. Go to **File** → **Project Structure** → **Artifacts**.
+2. Click the green plus (**+**) button, select **JAR**, and choose **From modules with dependencies...**
+3. In the **Main Class** field, click the folder icon and select the application's entry point class.
+4. Under **JAR files from libraries**, select **extract to the target JAR** (this creates the single Fat JAR).
+5. Click **OK**, then click **Apply**.
+6. From the top menu bar, go to **Build** → **Build Artifacts...** and click **Build**.
+7. The executable jar file will be generated inside the project directory under `out/artifacts/`.
+
+### Run the executable JAR file using the command line:
+
+```bash
+java -jar path/to/executable.jar
+```
+
+## Live Demo
+
+You can run this application directly in your web browser via the link below:
+
+**[Launch Live Demo](https://rjperez94.github.io/Online-Scheduler/)**
+
+
 ## Problem Description
 
 We have `m` machines to use and will be given an unknown number of `jobs`. There are two classes of job: `simple jobs` that take 'five' minutes to complete and `complex jobs` that take 'ten' minutes. Your system is given one job at a time and must assign it a slot in the schedule immediately before receiving information about the next job. We assume that assigning a job takes no time, that all jobs are independent, that the next job can begin running on a machine as soon as the previous job has completed, and that all jobs arrive before any begin to run. 
