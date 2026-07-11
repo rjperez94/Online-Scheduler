@@ -26,7 +26,7 @@ public class Job {
 	/**
 	 * Possible types of Jobs
 	 */
-	enum Type {
+    public enum Type {
 		SIMPLE, COMPLEX
 	}
 

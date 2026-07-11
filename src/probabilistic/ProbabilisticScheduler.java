@@ -2,15 +2,15 @@ package probabilistic;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import javax.management.InvalidAttributeValueException;
-
+import abst.Scheduler;
+import ecs100.UI;
 import probabilistic.Job.Type;
 
-public class ProbabilisticScheduler {
+public class ProbabilisticScheduler extends Scheduler {
 	//all jobs and all machines 
 	private final List<Job> jobs = new ArrayList<>();
 	private final List<Machine> machines = new ArrayList<>();
@@ -32,6 +32,8 @@ public class ProbabilisticScheduler {
 	 * @throws InvalidAttributeValueException
 	 */
 	public ProbabilisticScheduler(int machineCount, int jobCountLimit) throws InvalidAttributeValueException {
+		super(null);
+
 		if (machineCount <= 0 || jobCountLimit == Integer.MAX_VALUE) {
 			throw new InvalidAttributeValueException(
 					"m must be >=1 and jobCountLimit must not equal to Integer.MAX_VALUE");
@@ -44,11 +46,15 @@ public class ProbabilisticScheduler {
 	
 	/**
 	 * Constructor 2
+	 *
+	 * @param ui
 	 * @param machineCount -- m
-	 * @param jobsType -- the different jobs in format {Type.SIMPLE,Type.COMPLEX......TYPE.N} corresponding to job 1 is a simple job while job 2 is a complex job and so on
+	 * @param jobsType     -- the different jobs in format {Type.SIMPLE,Type.COMPLEX......TYPE.N} corresponding to job 1 is a simple job while job 2 is a complex job and so on
 	 * @throws InvalidAttributeValueException
 	 */
-	public ProbabilisticScheduler(int machineCount, Type[] jobsType) throws InvalidAttributeValueException {
+	public ProbabilisticScheduler(UI ui, int machineCount, Type[] jobsType) throws InvalidAttributeValueException {
+		super(ui);
+
 		if (machineCount <= 0 || jobsType.length < machineCount) {
 			throw new InvalidAttributeValueException(
 					"m must be >=1 and jobCountLimit must not equal to Integer.MAX_VALUE");
@@ -130,7 +136,7 @@ public class ProbabilisticScheduler {
 		double candidateProbability = 0;
 		
 		do {
-			if(hit)System.out.println("HIT");
+			if(hit)println("HIT");
 			//pick random machine from List<Machine>
 			recipient = machines.get(rand.nextInt(machines.size()));
 			//inspect if nextIdleTime/processedSoFar < limit....
@@ -150,12 +156,12 @@ public class ProbabilisticScheduler {
 		//get makeSpan
 		getMakeSpan();
 
-		System.out.println("Scheduler finished at " + new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").format(new Date()));
+		println("Scheduler finished at " + new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").format(new Date()));
 		//get job assignments
 		for (Machine mach : machines) {
-			System.out.println(mach.toString());
+			println(mach.toString());
 		}
-		System.out.println("Minimum makespan is " + minimumMakeSpan + " minute(s)");
+		println("Minimum makespan is " + minimumMakeSpan + " minute(s)");
 	}
 	
 	/**
@@ -180,37 +186,5 @@ public class ProbabilisticScheduler {
 	 */
 	public Long runningTime() {
 		return end - start;
-	}
-
-	public static void main(String[] args) throws InvalidAttributeValueException {
-		//fill array with 30 jobs, 50% simple and 50% complex
-		Job.Type[] jobs = new Job.Type[30];
-		for (int i = 0; i < jobs.length; i++) {
-			if (i % 2 == 1)
-				jobs[i] = Type.SIMPLE;
-			else
-				jobs[i] = Type.COMPLEX;
-		}
-		//assign to 5 machines
-		ProbabilisticScheduler tester = new ProbabilisticScheduler(5, jobs);
-		//must call solve and output
-		tester.solve();
-		tester.output();
-		
-		//fill array with 30 jobs, 50% simple and 50% complex
-		Job.Type[] jobs2 = new Job.Type[30];
-		for (int i = 0; i < jobs2.length; i++) {
-			if (i % 2 == 1)
-				jobs2[i] = Type.SIMPLE;
-			else
-				jobs2[i] = Type.COMPLEX;
-		}
-		//sort first, see if it has impact
-		Arrays.sort(jobs2);
-		//assign to 5 machines
-		ProbabilisticScheduler tester2 = new ProbabilisticScheduler(5, jobs2);
-		//must call solve and output
-		tester2.solve();
-		tester2.output();
 	}
 }
